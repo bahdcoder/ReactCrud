@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import ListItem from "./ListItems";
+import { validate } from "./utility/validate";
 import { alertFunc } from "./helpers/alert";
 import { addTodoFunc } from "./services/addTodo";
 import { updateTodoFunc } from "./services/updateTodo";
@@ -54,11 +55,6 @@ class App extends Component {
     deleteTodoFunc(this, index);
   };
 
-  validate = () => {
-    const newTodo = this.state.newTodo;
-    return newTodo.length < 5 ? true : false;
-  };
-
   render() {
     return (
       <div className="App">
@@ -84,7 +80,7 @@ class App extends Component {
             className="btn btn-info my-3 form-control"
             type="button"
             onClick={this.state.editing ? this.updateTodo : this.addTodo}
-            disabled={this.validate()}>
+            disabled={validate(this)}>
             {this.state.editing ? "update todo" : "add todo"}
           </button>
           {!this.state.editing && (
